@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 18, 18, 18;
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  font-family: 'Poppins', sans-serif;
+}
+
+@layer components {
+  .nav-link {
+    @apply px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-300;
+  }
+  
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold mb-6 text-center;
+  }
+  
+  .card {
+    @apply bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300;
+  }
+} 
