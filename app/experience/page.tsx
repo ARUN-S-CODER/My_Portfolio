@@ -21,7 +21,8 @@ const Experience: React.FC = () => {
         "Developed an AI-based invoice data extraction system",
         "Implemented knowledge graph generation for better data representation",
         "Improved accuracy of data extraction by 25%"
-      ]
+      ],
+      color: "from-blue-500 to-purple-500"
     },
     {
         company: "Shiash Info Pvt Ltd",
@@ -34,7 +35,8 @@ const Experience: React.FC = () => {
           "Developed multiple enterprise-level applications",
           "Implemented efficient data structures and algorithms",
           "Contributed to core Java development"
-        ]
+        ],
+        color: "from-yellow-500 to-orange-500"
       },
       {
         company: "Masterminds Startup",
@@ -47,7 +49,8 @@ const Experience: React.FC = () => {
           "Built a comprehensive drug information system",
           "Implemented real-time search functionality",
           "Integrated veterinary database with over 1000+ entries"
-        ]
+        ],
+        color: "from-green-500 to-teal-500"
       },
     {
       company: "Nova Tech",
@@ -60,7 +63,8 @@ const Experience: React.FC = () => {
         "Developed a To-Do List application using Streamlit",
         "Performed data cleaning and analytics tasks",
         "Implemented data visualization solutions"
-      ]
+      ],
+      color: "from-red-500 to-pink-500"
     },
     {
       company: "Coverscave",
@@ -73,7 +77,8 @@ const Experience: React.FC = () => {
         "Designed web UI for a real estate website",
         "Created course enrollment web design",
         "Implemented modern UI/UX principles"
-      ]
+      ],
+      color: "from-purple-500 to-indigo-500"
     },
     {
       company: "Altriusty Startup",
@@ -86,7 +91,8 @@ const Experience: React.FC = () => {
         "Created multiple UI pages using Streamlit",
         "Developed a rule-based chatbot using Dialogflow",
         "Integrated AI functionalities into web applications"
-      ]
+      ],
+      color: "from-blue-500 to-purple-500"
     },
     
     {
@@ -100,7 +106,8 @@ const Experience: React.FC = () => {
         "Conducted data cleaning using NumPy",
         "Created data visualizations in Excel",
         "Implemented data visualization using Matplotlib"
-      ]
+      ],
+      color: "from-yellow-500 to-orange-500"
     },
     {
       company: "Bharat Intern",
@@ -113,7 +120,8 @@ const Experience: React.FC = () => {
         "Built a Netflix clone website",
         "Created a responsive portfolio website",
         "Implemented modern web design principles"
-      ]
+      ],
+      color: "from-green-500 to-teal-500"
     },
     
   ];
@@ -136,7 +144,7 @@ const Experience: React.FC = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-20 px-4 pb-12">
+      <section className="min-h-screen pt-20 px-4 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-4xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -144,8 +152,22 @@ const Experience: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl font-bold mb-12 text-center flex items-center justify-center gap-4"
           >
-            <FaBriefcase className="text-primary" />
-            Work Experience
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <FaBriefcase className="text-yellow-500 w-10 h-10" />
+            </motion.div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+              Work Experience
+            </span>
           </motion.h1>
 
           <motion.div
@@ -158,7 +180,7 @@ const Experience: React.FC = () => {
               <motion.div
                 key={index}
                 variants={item}
-                className="bg-gray-800 rounded-xl p-6 relative border-l-4 border-primary transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                className={`bg-gray-800 rounded-xl p-6 relative border-l-4 border-${exp.color.split(' ')[1].split('-')[1]}-500 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl`}
                 onHoverStart={() => setHoveredCard(index)}
                 onHoverEnd={() => setHoveredCard(null)}
               >
@@ -166,13 +188,13 @@ const Experience: React.FC = () => {
                   <div className="flex justify-between items-start flex-wrap gap-2">
                     <div>
                       <motion.h2 
-                        className="text-2xl font-bold text-white hover:text-primary transition-colors duration-300"
+                        className={`text-2xl font-bold text-white hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${exp.color} transition-colors duration-300`}
                         animate={{ x: hoveredCard === index ? 10 : 0 }}
                       >
                         {exp.role}
                       </motion.h2>
                       <motion.h3 
-                        className="text-xl text-primary mb-1"
+                        className={`text-xl bg-clip-text text-transparent bg-gradient-to-r ${exp.color} mb-1`}
                         animate={{ x: hoveredCard === index ? 10 : 0, transition: { delay: 0.1 } }}
                       >
                         {exp.company}
@@ -180,7 +202,7 @@ const Experience: React.FC = () => {
                     </div>
                     <div className="text-right">
                       <motion.span 
-                        className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm inline-block"
+                        className={`bg-gradient-to-r ${exp.color} text-white px-3 py-1 rounded-full text-sm inline-block`}
                         whileHover={{ scale: 1.05 }}
                       >
                         {exp.type}
@@ -206,8 +228,22 @@ const Experience: React.FC = () => {
                     animate={{ y: hoveredCard === index ? 0 : 10, opacity: hoveredCard === index ? 1 : 0.8 }}
                   >
                     <h4 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                      <FaTrophy className="text-primary" />
-                      Key Achievements:
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 10, -10, 0],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      >
+                        <FaTrophy className={`text-${exp.color.split(' ')[1].split('-')[1]}-500 w-6 h-6`} />
+                      </motion.div>
+                      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${exp.color}`}>
+                        Key Achievements:
+                      </span>
                     </h4>
                     <ul className="list-disc list-inside space-y-1 text-gray-300">
                       {exp.achievements.map((achievement, idx) => (
@@ -216,7 +252,7 @@ const Experience: React.FC = () => {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: idx * 0.1 }}
-                          className="hover:text-primary transition-colors duration-300"
+                          className={`hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${exp.color} transition-colors duration-300`}
                         >
                           {achievement}
                         </motion.li>
@@ -229,13 +265,27 @@ const Experience: React.FC = () => {
                     animate={{ y: hoveredCard === index ? 0 : 10, opacity: hoveredCard === index ? 1 : 0.8 }}
                   >
                     <div className="flex items-center gap-2 mb-2 w-full">
-                      <FaCode className="text-primary" />
-                      <span className="text-gray-300">Technologies Used:</span>
+                      <motion.div
+                        animate={{ 
+                          rotate: [0, 10, -10, 0],
+                          scale: [1, 1.1, 1]
+                        }}
+                        transition={{ 
+                          duration: 2, 
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      >
+                        <FaCode className={`text-${exp.color.split(' ')[1].split('-')[1]}-500 w-6 h-6`} />
+                      </motion.div>
+                      <span className={`bg-clip-text text-transparent bg-gradient-to-r ${exp.color}`}>
+                        Technologies Used:
+                      </span>
                     </div>
                     {exp.technologies.map((tech, idx) => (
                       <motion.span
                         key={idx}
-                        className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-primary hover:text-white transition-colors duration-300"
+                        className={`bg-gradient-to-r ${exp.color} text-white px-3 py-1 rounded-full text-sm cursor-pointer hover:scale-110 transition-all duration-300`}
                         whileHover={{ scale: 1.05 }}
                         onClick={() => setExpandedTech(expandedTech === idx ? null : idx)}
                       >

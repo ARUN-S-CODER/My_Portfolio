@@ -17,6 +17,7 @@ interface EducationItem {
   cgpa?: string;
   score?: string;
   semesterGPA?: SemesterGPA[];
+  color: string;
 }
 
 const Education: React.FC = () => {
@@ -34,19 +35,22 @@ const Education: React.FC = () => {
         { semester: "SEMESTER 2", gpa: "8.814" },
         { semester: "SEMESTER 3", gpa: "8.980" },
         { semester: "SEMESTER 4", gpa: "9.191" }
-      ]
+      ],
+      color: "from-blue-500 to-purple-500"
     },
     {
       institution: "St. Sebastian Matriculation Higher Secondary School",
       degree: "Higher Secondary (XII)",
       duration: "2021 - 2022",
-      score: "550/600"
+      score: "550/600",
+      color: "from-yellow-500 to-orange-500"
     },
     {
       institution: "St. Sebastian Matriculation Higher Secondary School",
       degree: "Secondary School (X)",
       duration: "2019 - 2020",
-      score: "461/500"
+      score: "461/500",
+      color: "from-green-500 to-teal-500"
     }
   ];
 
@@ -54,26 +58,30 @@ const Education: React.FC = () => {
     {
       title: "Zero Solutions",
       description: "Certified UI/UX Designer and Flutter Developer",
-      icon: <FaCertificate className="text-primary" />,
-      details: "Comprehensive certification covering UI/UX principles and Flutter development practices"
+      icon: <FaCertificate className="w-6 h-6" />,
+      details: "Comprehensive certification covering UI/UX principles and Flutter development practices",
+      color: "from-yellow-500 to-orange-500"
     },
     {
       title: "Novi Tech",
       description: "Certified AI/ML Developer",
-      icon: <FaAward className="text-primary" />,
-      details: "Advanced certification in artificial intelligence and machine learning technologies"
+      icon: <FaAward className="w-6 h-6" />,
+      details: "Advanced certification in artificial intelligence and machine learning technologies",
+      color: "from-blue-500 to-purple-500"
     },
     {
       title: "English Typing",
       description: "Senior English Typist Certification",
-      icon: <FaCertificate className="text-primary" />,
-      details: "Professional certification in English typing with high accuracy and speed"
+      icon: <FaCertificate className="w-6 h-6" />,
+      details: "Professional certification in English typing with high accuracy and speed",
+      color: "from-green-500 to-teal-500"
     },
     {
       title: "Hindi Language",
       description: "Completed Hindi Certification",
-      icon: <FaAward className="text-primary" />,
-      details: "Comprehensive certification in Hindi language proficiency"
+      icon: <FaAward className="w-6 h-6" />,
+      details: "Comprehensive certification in Hindi language proficiency",
+      color: "from-red-500 to-pink-500"
     }
   ];
 
@@ -95,7 +103,7 @@ const Education: React.FC = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-20 px-4">
+      <section className="min-h-screen pt-20 px-4 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-4xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -103,8 +111,22 @@ const Education: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl font-bold mb-12 text-center flex items-center justify-center gap-4"
           >
-            <FaGraduationCap className="text-primary" />
-            Education
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <FaGraduationCap className="text-yellow-500 w-10 h-10" />
+            </motion.div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+              Education
+            </span>
           </motion.h1>
 
           <motion.div
@@ -117,26 +139,25 @@ const Education: React.FC = () => {
               <motion.div
                 key={index}
                 variants={item}
-                className="bg-gray-800 rounded-xl p-6 relative transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                className={`bg-gray-800 rounded-xl p-6 relative transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl border-t-4 border-${edu.color.split(' ')[1].split('-')[1]}-500`}
                 onHoverStart={() => setHoveredCard(index)}
                 onHoverEnd={() => setHoveredCard(null)}
               >
                 {/* Timeline dot with animation */}
                 <motion.div 
-                  className="absolute -left-3 top-8 w-6 h-6 bg-primary rounded-full border-4 border-gray-900"
+                  className={`absolute -left-3 top-8 w-6 h-6 rounded-full border-4 border-gray-900 bg-gradient-to-r ${edu.color}`}
                   animate={{
                     scale: hoveredCard === index ? 1.2 : 1,
-                    backgroundColor: hoveredCard === index ? "#4FD1C5" : "#3182ce"
                   }}
                   transition={{ duration: 0.3 }}
                 />
                 
                 {/* Content */}
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-2 transition-colors duration-300 hover:text-primary">
+                  <h2 className="text-2xl font-bold text-white mb-2 transition-colors duration-300">
                     {edu.institution}
                   </h2>
-                  <h3 className="text-xl text-primary mb-2">
+                  <h3 className={`text-xl bg-clip-text text-transparent bg-gradient-to-r ${edu.color} mb-2`}>
                     {edu.degree}
                   </h3>
                   <p className="text-gray-400 mb-2">
@@ -166,7 +187,7 @@ const Education: React.FC = () => {
                                   initial={{ opacity: 0, y: 10 }}
                                   animate={{ opacity: 1, y: 0 }}
                                   transition={{ delay: idx * 0.1 }}
-                                  className="bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                                  className={`bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors duration-300 border-l-4 border-${edu.color.split(' ')[1].split('-')[1]}-500`}
                                 >
                                   <div className="flex justify-between items-center">
                                     <span className="text-gray-300">{sem.semester}</span>
@@ -197,22 +218,45 @@ const Education: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 bg-gray-800 rounded-xl p-6"
+            className="mt-12 bg-gray-800 rounded-xl p-6 shadow-lg border-t-4 border-yellow-500"
           >
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <FaAward className="text-primary" />
-              Additional Certifications
+              <motion.div
+                animate={{ 
+                  rotate: [0, 10, -10, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                <FaAward className="text-yellow-500 w-8 h-8" />
+              </motion.div>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+                Additional Certifications
+              </span>
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {certifications.map((cert, index) => (
                 <motion.div
                   key={index}
-                  className="bg-gray-700 p-4 rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-[1.02]"
-                  whileHover={{ y: -5 }}
+                  className={`bg-gray-700 p-4 rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-[1.02] border-l-4 border-${cert.color.split(' ')[1].split('-')[1]}-500`}
+                  whileHover={{ y: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
                   onClick={() => setExpandedCert(expandedCert === index ? null : index)}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="mt-1">{cert.icon}</div>
+                    <motion.div 
+                      className={`bg-gradient-to-r ${cert.color} p-2 rounded-lg`}
+                      animate={{
+                        scale: expandedCert === index ? 1.2 : 1,
+                        rotate: expandedCert === index ? 5 : 0
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {cert.icon}
+                    </motion.div>
                     <div>
                       <h3 className="font-semibold text-white">{cert.title}</h3>
                       <p className="text-gray-300">{cert.description}</p>

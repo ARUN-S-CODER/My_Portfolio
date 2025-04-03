@@ -23,6 +23,7 @@ interface Project {
   features: string[];
   github: string;
   live: string | null;
+  color: string;
 }
 
 const Projects: React.FC = () => {
@@ -44,7 +45,8 @@ const Projects: React.FC = () => {
         "Entity and relationship extraction"
       ],
       github: "https://github.com/ARUN-S-CODER/Table_Recognition_Project",
-      live: null
+      live: null,
+      color: "from-blue-500 to-purple-500"
     },
     {
       title: "Ticket Buddy Bot",
@@ -58,7 +60,8 @@ const Projects: React.FC = () => {
         "Payment integration"
       ],
       github: "https://github.com/yourusername/ticketbuddy",
-      live: null
+      live: null,
+      color: "from-yellow-500 to-orange-500"
     },
     {
       title: "Helmet Detection System",
@@ -72,7 +75,8 @@ const Projects: React.FC = () => {
         "Automated reporting"
       ],
       github: "https://github.com/yourusername/helmet-detection",
-      live: null
+      live: null,
+      color: "from-green-500 to-teal-500"
     }
   ];
 
@@ -110,16 +114,30 @@ const Projects: React.FC = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-20 px-4 pb-12">
+      <section className="min-h-screen pt-20 px-4 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-8 text-center flex items-center justify-center gap-4"
+            className="text-4xl md:text-5xl font-bold mb-12 text-center flex items-center justify-center gap-4"
           >
-            <FaCode className="text-primary" />
-            Projects
+            <motion.div
+              animate={{ 
+                rotate: [0, 10, -10, 0],
+                scale: [1, 1.1, 1]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity,
+                repeatType: "reverse"
+              }}
+            >
+              <FaCode className="text-yellow-500 w-10 h-10" />
+            </motion.div>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+              Projects
+            </span>
           </motion.h1>
 
           {/* Tabs */}
@@ -129,7 +147,7 @@ const Projects: React.FC = () => {
                 key={tab}
                 className={`px-6 py-2 rounded-full capitalize transition-colors duration-300 ${
                   activeTab === tab
-                    ? 'bg-primary text-white'
+                    ? 'bg-gradient-to-r from-yellow-500 to-orange-500 text-white shadow-lg'
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -155,7 +173,7 @@ const Projects: React.FC = () => {
                   <motion.div
                     key={index}
                     variants={item}
-                    className="bg-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                    className={`bg-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-t-4 border-${project.color.split(' ')[1].split('-')[1]}-500`}
                   >
                     <div className="relative h-48 bg-gray-700">
                       {/* Project image would go here */}
@@ -165,7 +183,7 @@ const Projects: React.FC = () => {
                     </div>
                     
                     <div className="p-6">
-                      <h2 className="text-2xl font-bold text-white mb-2 hover:text-primary transition-colors">
+                      <h2 className={`text-2xl font-bold text-white mb-2 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors`}>
                         {project.title}
                       </h2>
                       <p className="text-gray-300 mb-4">
@@ -173,7 +191,9 @@ const Projects: React.FC = () => {
                       </p>
 
                       <div className="mb-4">
-                        <h3 className="text-lg font-semibold mb-2">Key Features:</h3>
+                        <h3 className={`text-lg font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r ${project.color}`}>
+                          Key Features:
+                        </h3>
                         <ul className="list-disc list-inside space-y-1 text-gray-300">
                           {project.features.map((feature, idx) => (
                             <motion.li 
@@ -181,6 +201,7 @@ const Projects: React.FC = () => {
                               initial={{ opacity: 0, x: -20 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: idx * 0.1 }}
+                              className={`hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors duration-300`}
                             >
                               {feature}
                             </motion.li>
@@ -192,7 +213,7 @@ const Projects: React.FC = () => {
                         {project.technologies.map((tech, idx) => (
                           <motion.span
                             key={idx}
-                            className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm cursor-pointer hover:bg-primary hover:text-white transition-colors duration-300"
+                            className={`bg-gradient-to-r ${project.color} text-white px-3 py-1 rounded-full text-sm cursor-pointer hover:scale-110 transition-all duration-300`}
                             whileHover={{ scale: 1.05 }}
                           >
                             {tech}
@@ -205,7 +226,7 @@ const Projects: React.FC = () => {
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+                          className={`flex items-center space-x-2 text-gray-300 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors`}
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -217,7 +238,7 @@ const Projects: React.FC = () => {
                             href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+                            className={`flex items-center space-x-2 text-gray-300 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors`}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -242,52 +263,44 @@ const Projects: React.FC = () => {
               >
                 {loading ? (
                   <div className="col-span-full text-center py-12">
-                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mx-auto"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500 mx-auto"></div>
                     <p className="mt-4 text-gray-300">Loading repositories...</p>
                   </div>
                 ) : (
                   repos.map((repo, index) => (
                     <motion.div
-                      key={repo.name}
+                      key={index}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]"
+                      className="bg-gray-800 rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-t-4 border-yellow-500"
                     >
-                      <h3 className="text-xl font-bold text-white mb-2 hover:text-primary transition-colors truncate" title={repo.name}>
+                      <h3 className="text-xl font-bold text-white mb-2 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-yellow-500 to-orange-500 transition-colors">
                         {repo.name}
                       </h3>
-                      <p className="text-gray-300 mb-4 text-sm line-clamp-2">
+                      <p className="text-gray-300 mb-4">
                         {repo.description || 'No description available'}
                       </p>
-                      
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {repo.language && (
-                          <span className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-                            {repo.language}
-                          </span>
-                        )}
-                        <span className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-                          Updated {new Date(repo.updated_at).toLocaleDateString()}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-4 text-sm text-gray-300">
+                      <div className="flex items-center gap-4 text-gray-400 mb-4">
                         <div className="flex items-center gap-1">
-                          <FaStar className="text-yellow-500" />
+                          <FaStar className="w-4 h-4" />
                           <span>{repo.stargazers_count}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <FaCodeBranch className="text-blue-500" />
+                          <FaCodeBranch className="w-4 h-4" />
                           <span>{repo.forks_count}</span>
                         </div>
+                        {repo.language && (
+                          <span className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-2 py-1 rounded-full text-xs">
+                            {repo.language}
+                          </span>
+                        )}
                       </div>
-
                       <motion.a
                         href={repo.html_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center space-x-2 text-primary hover:text-white transition-colors"
+                        className="flex items-center gap-2 text-gray-300 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r from-yellow-500 to-orange-500 transition-colors"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
