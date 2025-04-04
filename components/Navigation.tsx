@@ -23,7 +23,7 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems: NavItem[] = [
+  const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
     { name: 'Education', href: '/education' },
@@ -31,7 +31,7 @@ const Navigation: React.FC = () => {
     { name: 'Experience', href: '/experience' },
     { name: 'Projects', href: '/projects' },
     { name: 'Achievements', href: '/achievements' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contact', href: '/contact' }
   ];
 
   return (

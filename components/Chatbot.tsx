@@ -1,38 +1,211 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaTimes, FaPaperPlane } from 'react-icons/fa';
+import { FaRobot, FaTimes, FaPaperPlane, FaUser, FaSpinner } from 'react-icons/fa';
+import Link from 'next/link';
+
+interface Message {
+  id: string;
+  text: string;
+  sender: 'user' | 'bot';
+  timestamp: Date;
+}
 
 const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: "Hi! I'm Arun's AI assistant. How can I help you today?", isBot: true }
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: '1',
+      text: 'Hello! I\'m your AI assistant. How can I help you learn more about Arun today?',
+      sender: 'bot',
+      timestamp: new Date()
+    }
   ]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Suggested questions
+  const suggestedQuestions = [
+    "Tell me about Arun",
+    "What are his skills?",
+    "What projects has he worked on?",
+    "What is his education background?",
+    "What are his achievements?",
+    "How can I contact him?",
+    "Tell me about his hackathon experience",
+    "What certifications does he have?"
+  ];
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Add user message
-    const userMessage = input.trim();
-    setMessages(prev => [...prev, { text: userMessage, isBot: false }]);
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: input,
+      sender: 'user',
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
+    setIsLoading(true);
+    setShowSuggestions(false);
 
-    // Simulate AI response (replace with actual AI integration)
+    // Simulate bot response
     setTimeout(() => {
-      setMessages(prev => [
-        ...prev,
-        {
-          text: "Thanks for your message! I'm a demo chatbot. In the real version, I'll be integrated with an AI service to provide helpful responses about Arun's portfolio.",
-          isBot: true
-        }
-      ]);
+      const botResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: getBotResponse(input),
+        sender: 'bot',
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, botResponse]);
       setIsTyping(false);
-    }, 1000);
+      setIsLoading(false);
+    }, 1500);
+  };
+
+  // Handle clicking on suggested questions
+  const handleSuggestedQuestion = (question: string) => {
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: question,
+      sender: 'user',
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setIsTyping(true);
+    setIsLoading(true);
+    setShowSuggestions(false);
+
+    // Simulate bot response
+    setTimeout(() => {
+      const botResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: getBotResponse(question),
+        sender: 'bot',
+        timestamp: new Date()
+      };
+      
+      setMessages(prev => [...prev, botResponse]);
+      setIsTyping(false);
+      setIsLoading(false);
+    }, 1500);
+  };
+
+  const getBotResponse = (userInput: string): string => {
+    const lowerInput = userInput.toLowerCase();
+    
+    // General greetings
+    if (lowerInput.includes('hello') || lowerInput.includes('hi') || lowerInput.includes('hey')) {
+      return 'Hello there! I\'m your AI assistant. How can I help you learn more about Arun today?';
+    } 
+    
+    // About the chatbot
+    else if (lowerInput.includes('about') && (lowerInput.includes('you') || lowerInput.includes('bot') || lowerInput.includes('assistant'))) {
+      return 'I\'m an AI assistant created to help visitors learn more about Arun. I can tell you about his skills, projects, education, achievements, and much more. What would you like to know?';
+    } 
+    
+    // About Arun
+    else if (lowerInput.includes('about') && lowerInput.includes('arun')) {
+      return 'Arun is a passionate software developer and engineering student with expertise in Flutter, UI/UX design, and AI/ML development. He\'s currently pursuing his education at Sri Sairam Engineering College with a CGPA of 8.83. He has participated in numerous hackathons, including being a finalist in SIH\'24, and has completed several NPTEL certifications. He\'s also solved over 3000 programming problems and completed 10+ projects.';
+    }
+    
+    // Skills
+    else if (lowerInput.includes('skills') || lowerInput.includes('what can you do') || lowerInput.includes('expertise')) {
+      return 'Arun has expertise in:\n- Flutter Development\n- UI/UX Design\n- AI/ML Development\n- Software Development\n- Problem Solving\n- Competitive Programming\n- Web Development\n- Mobile App Development\n- Database Management\n- Cloud Computing\n\nHe\'s also skilled in various programming languages and frameworks. Would you like to know more about any specific skill?';
+    } 
+    
+    // Programming languages
+    else if (lowerInput.includes('language') || lowerInput.includes('programming') || lowerInput.includes('code')) {
+      return 'Arun is proficient in several programming languages and technologies:\n\n- Java\n- Python\n- JavaScript/TypeScript\n- Dart (Flutter)\n- HTML/CSS\n- SQL\n\nHe has demonstrated his programming skills through various projects, hackathons, and by solving over 3000 programming problems. His NPTEL certifications in Programming in Java and Python for Data Science further validate his expertise.';
+    }
+    
+    // Projects
+    else if (lowerInput.includes('projects') || lowerInput.includes('work') || lowerInput.includes('portfolio')) {
+      return 'Arun has worked on several impressive projects:\n\n1. Veterinary Drug Management App\n   - A comprehensive solution for veterinary clinics\n   - Developed using Flutter for cross-platform compatibility\n\n2. IEEE TechGood Project\n   - Received IEEE funding for this innovative project\n   - Focused on creating positive social impact\n\n3. Various Hackathon Projects\n   - Including his SIH\'24 finalist project\n   - Demonstrating rapid prototyping and problem-solving skills\n\n4. Open Source Contributions\n   - Active contributor to various open-source projects\n   - Sharing knowledge with the developer community\n\nEach project showcases different aspects of his skills. Would you like to know more details about any specific project?';
+    } 
+    
+    // Contact
+    else if (lowerInput.includes('contact') || lowerInput.includes('reach') || lowerInput.includes('email') || lowerInput.includes('phone')) {
+      return 'You can reach out to Arun through multiple channels:\n\n📧 Email: arun.s00101@gmail.com\n📱 Phone: +91 90031 28358\n💼 LinkedIn: Connect with him for professional networking\n🐱 GitHub: Check out his code contributions\n\nFeel free to reach out for collaborations or opportunities!';
+    } 
+    
+    // Education
+    else if (lowerInput.includes('education') || lowerInput.includes('college') || lowerInput.includes('university') || lowerInput.includes('degree')) {
+      return 'Arun is currently pursuing his education at Sri Sairam Engineering College:\n\n📚 Current CGPA: 8.83\n🎓 NPTEL Certifications:\n- Cloud Computing (2024) - Elite + Silver, 75%\n- Programming in Java (2023) - Elite + Silver, 75%\n- Introduction to Database Systems (2024) - 49%\n- Python for Data Science (2024) - Elite + Silver, 81%\n\nHe consistently maintains excellent academic performance while actively participating in various technical competitions and hackathons. His education combines theoretical knowledge with practical experience through projects and certifications.';
+    } 
+    
+    // Achievements
+    else if (lowerInput.includes('achievements') || lowerInput.includes('awards') || lowerInput.includes('accomplishments')) {
+      return 'Arun has achieved several notable milestones:\n\n🏆 SIH\'24 Finalist\n🌟 Top 100 at Hack4Purpose Hackathon\n💡 IEEE Funding for TechGood Project\n📊 3000+ Problems Solved\n🎯 10+ Projects Completed\n🏅 5+ Hackathons\n📜 10+ Certifications\n\nThese achievements demonstrate his dedication to continuous learning and self-improvement. He balances academic excellence with practical experience through competitions and projects.';
+    } 
+    
+    // Hackathons
+    else if (lowerInput.includes('hackathon') || lowerInput.includes('competition') || lowerInput.includes('contest')) {
+      return 'Arun has participated in several prestigious hackathons and competitions:\n\n1. Smart India Hackathon 2024 (Finalist)\n   - National-level hackathon\n   - Reached the final round\n\n2. Hack4Purpose Hackathon (Top 100)\n   - Secured position in Top 100\n   - Developed innovative solutions\n\n3. IEEE TechGood Project Competition\n   - Received funding for his project\n   - Focused on social impact\n\nEach competition has helped him develop new skills and gain valuable experience in rapid prototyping and team collaboration. He enjoys the challenge of solving real-world problems within tight deadlines.';
+    } 
+    
+    // Certifications
+    else if (lowerInput.includes('certification') || lowerInput.includes('nptel') || lowerInput.includes('course')) {
+      return 'Arun has completed several NPTEL certifications:\n\n1. Cloud Computing (2024)\n   - Elite + Silver\n   - Score: 75%\n   - Covers cloud architecture and deployment\n\n2. Programming in Java (2023)\n   - Elite + Silver\n   - Score: 75%\n   - Advanced Java programming concepts\n\n3. Introduction to Database Systems (2024)\n   - Score: 49%\n   - Database design and management\n\n4. Python for Data Science (2024)\n   - Elite + Silver\n   - Score: 81%\n   - Data analysis and machine learning\n\nThese certifications demonstrate his commitment to continuous learning and skill development across various domains of computer science.';
+    } 
+    
+    // Experience
+    else if (lowerInput.includes('experience') || lowerInput.includes('work experience') || lowerInput.includes('job')) {
+      return 'While Arun is currently a student, he has gained significant practical experience through:\n\n1. Project Development\n   - Developed 10+ projects independently and in teams\n   - Created solutions for real-world problems\n\n2. Hackathon Participation\n   - Participated in 5+ hackathons including SIH\'24\n   - Gained experience in rapid prototyping and team collaboration\n\n3. Open Source Contributions\n   - Contributed to various open-source projects\n   - Collaborated with developers worldwide\n\n4. Technical Competitions\n   - Participated in coding competitions\n   - Solved over 3000 programming problems\n\nThis hands-on experience complements his academic learning and has helped him develop practical skills in software development.';
+    }
+    
+    // GitHub
+    else if (lowerInput.includes('github') || lowerInput.includes('repository') || lowerInput.includes('code')) {
+      return 'Arun is active on GitHub where he:\n\n- Maintains repositories for his personal projects\n- Contributes to open-source projects\n- Shares code samples and solutions\n- Collaborates with other developers\n\nHis GitHub profile showcases his coding skills, project work, and contributions to the developer community. You can connect with him on GitHub to see his latest work and contributions.';
+    }
+    
+    // Flutter
+    else if (lowerInput.includes('flutter') || lowerInput.includes('mobile') || lowerInput.includes('app')) {
+      return 'Arun has expertise in Flutter development:\n\n- Developed cross-platform mobile applications\n- Created responsive and user-friendly interfaces\n- Implemented state management solutions\n- Integrated backend services with Flutter apps\n\nHis Veterinary Drug Management App is a notable example of his Flutter development skills. He enjoys building mobile applications that solve real-world problems and provide excellent user experiences.';
+    }
+    
+    // UI/UX
+    else if (lowerInput.includes('ui') || lowerInput.includes('ux') || lowerInput.includes('design')) {
+      return 'Arun has skills in UI/UX design:\n\n- Creates intuitive and user-friendly interfaces\n- Follows modern design principles and trends\n- Focuses on accessibility and usability\n- Designs responsive layouts for various devices\n\nHis projects demonstrate his ability to create visually appealing and functional user interfaces that enhance the overall user experience.';
+    }
+    
+    // AI/ML
+    else if (lowerInput.includes('ai') || lowerInput.includes('ml') || lowerInput.includes('machine learning') || lowerInput.includes('artificial intelligence')) {
+      return 'Arun has experience in AI/ML development:\n\n- Completed NPTEL certification in Python for Data Science\n- Developed machine learning models for various applications\n- Implemented AI solutions in his projects\n- Continuously learning about new AI/ML technologies\n\nHis interest in AI/ML is reflected in his projects and certifications, demonstrating his ability to apply these technologies to solve complex problems.';
+    }
+    
+    // Thank you
+    else if (lowerInput.includes('thank') || lowerInput.includes('thanks')) {
+      return 'You\'re welcome! Feel free to ask if you have any more questions about Arun\'s skills, projects, education, or achievements. I\'m here to help!';
+    } 
+    
+    // Help
+    else if (lowerInput.includes('help') || lowerInput.includes('what can i ask')) {
+      return 'You can ask me about:\n\n1. Skills & Expertise\n2. Projects & Work\n3. Education & Certifications\n4. Achievements & Awards\n5. Contact Information\n6. Hackathons & Competitions\n7. NPTEL Certifications\n8. Programming Languages\n9. Experience\n10. GitHub\n11. Flutter Development\n12. UI/UX Design\n13. AI/ML\n\nFeel free to ask any question about these topics!';
+    } 
+    
+    // Default response
+    else {
+      return 'I\'m not sure about that specific topic. You can ask me about Arun\'s:\n\n- Skills and expertise\n- Projects and work experience\n- Education and certifications\n- Achievements and awards\n- Contact information\n- Hackathon participation\n- Programming languages\n- GitHub contributions\n- Flutter development\n- UI/UX design\n- AI/ML experience\n\nWhat would you like to know?';
+    }
   };
 
   return (
@@ -42,10 +215,11 @@ const Chatbot: React.FC = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         whileHover={{ scale: 1.1 }}
-        className="fixed bottom-4 right-4 bg-primary text-white p-4 rounded-full shadow-lg z-50"
+        whileTap={{ scale: 0.9 }}
+        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-full shadow-lg z-50"
         onClick={() => setIsOpen(true)}
       >
-        <FaRobot className="w-6 h-6" />
+        <FaRobot className="w-6 h-6 text-white" />
       </motion.button>
 
       {/* Chat Window */}
@@ -55,17 +229,19 @@ const Chatbot: React.FC = () => {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
-            className="fixed bottom-20 right-4 w-96 h-[500px] bg-gray-800 rounded-xl shadow-xl overflow-hidden z-50"
+            className="fixed bottom-24 right-6 w-96 h-[500px] bg-gray-800 rounded-xl shadow-xl overflow-hidden z-50 border-t-4 border-blue-500"
           >
             {/* Header */}
-            <div className="bg-primary p-4 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-blue-500 to-purple-500 bg-opacity-10 p-4 flex justify-between items-center">
               <div className="flex items-center space-x-2">
-                <FaRobot className="w-6 h-6" />
+                <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-lg">
+                  <FaRobot className="w-5 h-5 text-white" />
+                </div>
                 <h3 className="text-white font-bold">AI Assistant</h3>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-white hover:text-gray-200"
+                className="text-gray-300 hover:text-white"
               >
                 <FaTimes className="w-5 h-5" />
               </button>
@@ -73,54 +249,131 @@ const Chatbot: React.FC = () => {
 
             {/* Messages */}
             <div className="h-[380px] overflow-y-auto p-4 space-y-4">
-              {messages.map((message, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}
-                >
-                  <div
-                    className={`max-w-[80%] p-3 rounded-lg ${
-                      message.isBot
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-primary text-white'
-                    }`}
+              <AnimatePresence>
+                {messages.map((message) => (
+                  <motion.div
+                    key={message.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    {message.text}
-                  </div>
-                </motion.div>
-              ))}
-              {isTyping && (
+                    <div className={`flex items-start max-w-[80%] ${message.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                      <div className={`flex-shrink-0 ${message.sender === 'user' ? 'ml-3' : 'mr-3'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          message.sender === 'user' 
+                            ? 'bg-gradient-to-r from-green-500 to-teal-500' 
+                            : 'bg-gradient-to-r from-blue-500 to-purple-500'
+                        }`}>
+                          {message.sender === 'user' ? <FaUser className="w-4 h-4 text-white" /> : <FaRobot className="w-4 h-4 text-white" />}
+                        </div>
+                      </div>
+                      <div className={`rounded-lg p-3 ${
+                        message.sender === 'user' 
+                          ? 'bg-gradient-to-r from-green-500 to-teal-500 text-white' 
+                          : 'bg-gray-700 text-gray-200'
+                      }`}>
+                        <p>{message.text}</p>
+                        <p className="text-xs opacity-70 mt-1">
+                          {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              
+              {/* Suggested Questions */}
+              {showSuggestions && (
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex justify-start"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4"
                 >
-                  <div className="bg-gray-700 text-white px-4 py-2 rounded-lg">
-                    Typing...
+                  <p className="text-gray-400 text-sm mb-2">Suggested questions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestedQuestions.map((question, index) => (
+                      <motion.button
+                        key={index}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => handleSuggestedQuestion(question)}
+                        className="bg-gray-700 hover:bg-gray-600 text-gray-200 text-xs px-3 py-1.5 rounded-lg transition-colors"
+                      >
+                        {question}
+                      </motion.button>
+                    ))}
                   </div>
                 </motion.div>
               )}
+              
+              {isTyping && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="flex items-start">
+                    <div className="mr-3">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500">
+                        <FaRobot className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                    <div className="bg-gray-700 rounded-lg p-3">
+                      <div className="flex space-x-2">
+                        <motion.div
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0 }}
+                          className="w-2 h-2 bg-gray-400 rounded-full"
+                        />
+                        <motion.div
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
+                          className="w-2 h-2 bg-gray-400 rounded-full"
+                        />
+                        <motion.div
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
+                          className="w-2 h-2 bg-gray-400 rounded-full"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+              
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
-            <form onSubmit={handleSubmit} className="p-4 bg-gray-700">
-              <div className="flex space-x-2">
+            <form onSubmit={handleSubmit} className="p-4 border-t border-gray-700">
+              <div className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Type your message..."
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="flex-1 bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-500"
+                  disabled={isLoading}
                 />
-                <button
+                <motion.button
                   type="submit"
-                  disabled={!input.trim()}
-                  className="bg-primary text-white px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={isLoading || !input.trim()}
+                  className={`p-2 rounded-lg ${
+                    isLoading || !input.trim()
+                      ? 'bg-gray-600 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600'
+                  }`}
                 >
-                  <FaPaperPlane />
-                </button>
+                  {isLoading ? (
+                    <FaSpinner className="w-5 h-5 text-white animate-spin" />
+                  ) : (
+                    <FaPaperPlane className="w-5 h-5 text-white" />
+                  )}
+                </motion.button>
               </div>
             </form>
           </motion.div>
