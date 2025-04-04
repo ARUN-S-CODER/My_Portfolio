@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaCode, FaPalette, FaRobot, FaMobileAlt, FaGraduationCap, FaTrophy, FaLaptopCode, FaUserTie, FaLightbulb, FaHeart, FaRocket, FaBrain, FaHandshake, FaGlobe } from 'react-icons/fa';
@@ -25,7 +26,7 @@ const About: React.FC = () => {
       icon: <FaCode className="w-8 h-8" />,
       title: "Software Development",
       description: "Building robust and scalable applications using modern technologies",
-      details: "Expert in React, Node.js, and full-stack development",
+      details: "Expert in React, Web Tech, and full-stack development",
       color: "from-blue-500 to-purple-500"
     },
     {
@@ -39,14 +40,14 @@ const About: React.FC = () => {
       icon: <FaRobot className="w-8 h-8" />,
       title: "AI/ML Development",
       description: "Implementing machine learning solutions",
-      details: "Experience with Python, TensorFlow, and ML algorithms",
+      details: "Experience with Python, OpenCV, and ML algorithms",
       color: "from-green-500 to-teal-500"
     },
     {
       icon: <FaMobileAlt className="w-8 h-8" />,
       title: "Mobile Development",
       description: "Developing cross-platform mobile applications",
-      details: "Skilled in Flutter, React Native, and mobile UI/UX",
+      details: "Skilled in Flutter and mobile UI/UX",
       color: "from-red-500 to-pink-500"
     }
   ];
@@ -54,7 +55,7 @@ const About: React.FC = () => {
   const quickFacts = [
     {
       icon: <FaGraduationCap className="w-6 h-6" />,
-      text: "B.Tech Computer Science student with 8.67 CGPA",
+      text: "B.Tech Computer Science student with 8.667 CGPA",
       color: "from-blue-500 to-purple-500"
     },
     {
@@ -74,45 +75,50 @@ const About: React.FC = () => {
     },
     {
       icon: <FaTrophy className="w-6 h-6" />,
-      text: "Winner at Hack4Purpose Hackathon",
+      text: "Smart India Hackathon 2024 Finalist",
       color: "from-purple-500 to-indigo-500"
+    },
+    {
+      icon: <FaTrophy className="w-6 h-6" />,
+      text: "Top 100 in Hack4Purpose Hackathon",
+      color: "from-yellow-500 to-orange-500"
     }
   ];
 
   const timelineItems = [
     {
-      year: "2020",
-      title: "Beginning My Tech Journey",
-      description: "Started learning programming and web development fundamentals",
-      icon: <FaRocket className="w-6 h-6" />,
+      year: "2021",
+      title: "Beginning of Journey",
+      description: "Started learning programming basics and exploring UI/UX design fundamentals",
+      icon: <FaCode className="w-6 h-6 text-white" />,
       color: "from-blue-500 to-purple-500"
     },
     {
-      year: "2021",
-      title: "First Professional Project",
-      description: "Developed a veterinary management system for a local clinic",
-      icon: <FaHandshake className="w-6 h-6" />,
+      year: "2022",
+      title: "Web Development",
+      description: "Explored web development and completed my first internship projects",
+      icon: <FaLaptopCode className="w-6 h-6 text-white" />,
       color: "from-yellow-500 to-orange-500"
     },
     {
-      year: "2022",
-      title: "AI/ML Exploration",
-      description: "Started exploring machine learning and AI technologies",
-      icon: <FaBrain className="w-6 h-6" />,
+      year: "2023",
+      title: "AI & Innovation",
+      description: "Ventured into artificial intelligence and modern tech innovations",
+      icon: <FaRobot className="w-6 h-6 text-white" />,
       color: "from-green-500 to-teal-500"
     },
     {
-      year: "2023",
-      title: "Hackathon Success",
-      description: "Won first place at Hack4Purpose with an innovative solution",
-      icon: <FaTrophy className="w-6 h-6" />,
+      year: "2024",
+      title: "Growth, Achievements & Recognition",
+      description: "SIH finalist, IEEE paper publication, Hack4Purpose top 100, and various technical contest achievements",
+      icon: <FaTrophy className="w-6 h-6 text-white" />,
       color: "from-red-500 to-pink-500"
     },
     {
-      year: "2024",
-      title: "Global Collaboration",
-      description: "Working on international projects and expanding my network",
-      icon: <FaGlobe className="w-6 h-6" />,
+      year: "2025",
+      title: "Flutter Developer & Professional Projects",
+      description: "Leading veterinary drug management app development and exploring new technologies",
+      icon: <FaMobileAlt className="w-6 h-6 text-white" />,
       color: "from-purple-500 to-indigo-500"
     }
   ];
@@ -168,7 +174,7 @@ const About: React.FC = () => {
           </motion.h1>
 
           {/* Tabs */}
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="flex justify-center gap-4 mb-8 overflow-x-auto py-2">
             {['about', 'timeline', 'skills', 'values', 'facts'].map((tab) => (
               <motion.button
                 key={tab}
@@ -203,13 +209,18 @@ const About: React.FC = () => {
                   transition={{ delay: 0.2 }}
                 >
                   <motion.div 
-                    className="w-32 h-32 rounded-full overflow-hidden border-4 border-yellow-500 shadow-lg"
+                    className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-yellow-500 shadow-lg"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
-                      <FaUserTie className="w-16 h-16 text-white" />
-                    </div>
+                    <Image
+                      src="/images/profile.png"
+                      alt="Arun S Profile"
+                      fill
+                      sizes="(max-width: 128px) 100vw, 128px"
+                      className="object-cover"
+                      priority
+                    />
                   </motion.div>
                   <div className="flex-1">
                     <h2 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
@@ -266,40 +277,49 @@ const About: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="relative"
+                className="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-yellow-500 before:to-orange-500 md:before:mx-auto md:before:left-0 md:before:right-0"
               >
-                <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-gray-700"></div>
-                
                 {timelineItems.map((item, index) => (
                   <motion.div
                     key={index}
-                    className={`relative mb-8 ${index % 2 === 0 ? 'md:ml-auto md:pl-8' : 'md:mr-auto md:pr-8'} ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    className="relative flex items-center justify-center"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.2 }}
-                    onHoverStart={() => setActiveTimelineItem(index)}
-                    onHoverEnd={() => setActiveTimelineItem(null)}
                   >
-                    <div className={`bg-gray-800 rounded-lg p-6 shadow-lg border-l-4 md:border-l-0 ${index % 2 === 0 ? 'md:border-r-4' : 'border-l-4'} border-${item.color.split(' ')[1].split('-')[1]}-500`}>
-                      <div className="flex items-center gap-4">
+                    <div className={`flex items-center gap-4 w-full ${
+                      item.year === "2022" || item.year === "2024" 
+                        ? 'md:flex-row-reverse' 
+                        : 'md:flex-row'
+                    }`}>
+                      <motion.div
+                        className={`flex-none w-full md:w-[calc(50%-2rem)] ${
+                          item.year === "2022" || item.year === "2024" 
+                            ? 'md:text-right' 
+                            : 'md:text-left'
+                        }`}
+                      >
                         <motion.div
-                          className={`bg-gradient-to-r ${item.color} p-3 rounded-full`}
-                          animate={{
-                            scale: activeTimelineItem === index ? 1.2 : 1,
-                            rotate: activeTimelineItem === index ? 10 : 0
-                          }}
-                          transition={{ duration: 0.3 }}
+                          className="flex flex-col gap-2 rounded-lg bg-gray-800 p-4 shadow-lg"
+                          whileHover={{ scale: 1.02 }}
                         >
-                          {item.icon}
+                          <span className="inline-block rounded-full bg-gray-900 px-4 py-1 text-sm font-bold text-yellow-500 border border-yellow-500/30 w-fit">
+                            {item.year}
+                          </span>
+                          <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                          <p className="text-gray-300 text-sm">{item.description}</p>
                         </motion.div>
-                        <div>
-                          <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                          <p className="text-gray-300">{item.description}</p>
-                        </div>
-                      </div>
-                      <div className="absolute top-0 left-0 md:left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 rounded-full px-4 py-1 text-sm font-bold text-yellow-500 border-2 border-yellow-500">
-                        {item.year}
-                      </div>
+                      </motion.div>
+
+                      <motion.div
+                        className={`flex h-10 w-10 flex-none items-center justify-center rounded-full bg-gradient-to-r ${item.color} shadow-lg`}
+                        whileHover={{ scale: 1.2 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.icon}
+                      </motion.div>
+
+                      <div className="hidden md:block flex-none w-[calc(50%-2rem)]" />
                     </div>
                   </motion.div>
                 ))}
