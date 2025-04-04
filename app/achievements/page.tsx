@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaTrophy, FaMedal, FaCertificate, FaCode, FaFileCode, FaAward, FaChevronDown, FaChevronUp, FaStar, FaLightbulb, FaUsers, FaChartLine } from 'react-icons/fa';
+import { FaTrophy, FaMedal, FaCertificate, FaCode, FaFileCode, FaAward, FaChevronDown, FaChevronUp, FaStar, FaLightbulb, FaUsers, FaChartLine, FaGraduationCap } from 'react-icons/fa';
 
 const Achievements: React.FC = () => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -26,6 +26,12 @@ const Achievements: React.FC = () => {
       color: "from-yellow-500 to-orange-500",
       icon: <FaTrophy className="w-6 h-6" />,
       items: [
+        {
+          title: "Smart India Hackathon 2024",
+          description: "Finalist in the prestigious national-level hackathon",
+          icon: <FaTrophy className="w-6 h-6" />,
+          date: "2024"
+        },
         {
           title: "Hack4Purpose Hackathon",
           description: "Secured position in Top 100 teams among 1000+ participants",
@@ -62,6 +68,37 @@ const Achievements: React.FC = () => {
           description: "Novi Tech - Comprehensive certification in AI and Machine Learning",
           icon: <FaCertificate className="w-6 h-6" />,
           date: "2023"
+        }
+      ]
+    },
+    {
+      category: "NPTEL Certifications",
+      color: "from-indigo-500 to-purple-500",
+      icon: <FaGraduationCap className="w-6 h-6" />,
+      items: [
+        {
+          title: "Cloud Computing",
+          description: "Elite + Silver certification with 75% score",
+          icon: <FaCertificate className="w-6 h-6" />,
+          date: "2024"
+        },
+        {
+          title: "Programming in Java",
+          description: "Elite + Silver certification with 75% score",
+          icon: <FaCertificate className="w-6 h-6" />,
+          date: "2023"
+        },
+        {
+          title: "Introduction to Database Systems",
+          description: "Completed with 49% score",
+          icon: <FaCertificate className="w-6 h-6" />,
+          date: "2024"
+        },
+        {
+          title: "Python for Data Science",
+          description: "Elite + Silver certification with 81% score",
+          icon: <FaCertificate className="w-6 h-6" />,
+          date: "2024"
         }
       ]
     },
@@ -131,9 +168,9 @@ const Achievements: React.FC = () => {
       color: "from-yellow-500 to-orange-500"
     },
     {
-      value: "3+",
-      label: "Years Experience",
-      icon: <FaChartLine className="w-6 h-6" />,
+      value: "10+",
+      label: "Certifications",
+      icon: <FaCertificate className="w-6 h-6" />,
       color: "from-red-500 to-pink-500"
     }
   ];

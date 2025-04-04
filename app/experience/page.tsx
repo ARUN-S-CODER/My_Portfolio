@@ -12,8 +12,8 @@ const Experience: React.FC = () => {
   const experiences = [
     {
       company: "iTech India Pvt Ltd",
-      role: "ML Developer",
-      duration: "February 2025 - ongoing",
+      role: "AI Developer",
+      duration: "March 2025 - ongoing",
       type: "Internship",
       description: "Built a Table Recognition System that extracts key-value pairs from invoice bills and generates a knowledge graph.",
       technologies: ["OpenCV", "Machine Learning", "Python", "Data Processing"],

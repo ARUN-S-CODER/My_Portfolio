@@ -29,12 +29,13 @@ const Education: React.FC = () => {
       institution: "Sri Sairam Engineering College",
       degree: "B.Tech Computer Science and Business Systems",
       duration: "2022 - 2026",
-      cgpa: "8.87 (Current)",
+      cgpa: "8.83 (Current)",
       semesterGPA: [
         { semester: "SEMESTER 1", gpa: "8.468" },
         { semester: "SEMESTER 2", gpa: "8.814" },
         { semester: "SEMESTER 3", gpa: "8.980" },
-        { semester: "SEMESTER 4", gpa: "9.191" }
+        { semester: "SEMESTER 4", gpa: "9.191" },
+        { semester: "SEMESTER 5", gpa: "8.667" }
       ],
       color: "from-blue-500 to-purple-500"
     },

@@ -8,26 +8,18 @@ import { FaCode, FaPalette, FaRobot, FaMobileAlt, FaGithub, FaLinkedin, FaEnvelo
 
 const Home: React.FC = () => {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
-  const [activeRole, setActiveRole] = useState(0);
-
-  const roles = [
-    { text: 'Software Developer', icon: <FaCode className="w-6 h-6" />, color: "from-blue-500 to-purple-500" },
-    { text: 'UI/UX Designer', icon: <FaPalette className="w-6 h-6" />, color: "from-yellow-500 to-orange-500" },
-    { text: 'AI/ML Enthusiast', icon: <FaRobot className="w-6 h-6" />, color: "from-green-500 to-teal-500" },
-    { text: 'Mobile Developer', icon: <FaMobileAlt className="w-6 h-6" />, color: "from-red-500 to-pink-500" }
-  ];
 
   const socialLinks = [
-    { icon: <FaGithub className="w-5 h-5" />, href: "https://github.com/ARUN-S-CODER", label: "GitHub", color: "from-gray-700 to-gray-900" },
-    { icon: <FaLinkedin className="w-5 h-5" />, href: "https://linkedin.com/in/arun-s", label: "LinkedIn", color: "from-blue-600 to-blue-800" },
-    { icon: <FaEnvelope className="w-5 h-5" />, href: "mailto:arun@example.com", label: "Email", color: "from-red-500 to-red-700" }
+    { icon: <FaGithub className="icon-responsive" />, href: "https://github.com/ARUN-S-CODER", label: "GitHub", color: "from-gray-700 to-gray-900" },
+    { icon: <FaLinkedin className="icon-responsive" />, href: "https://www.linkedin.com/in/arun-s-b-tech-b26515257", label: "LinkedIn", color: "from-blue-600 to-blue-800" },
+    { icon: <FaEnvelope className="icon-responsive" />, href: "mailto:arun@example.com", label: "Email", color: "from-red-500 to-red-700" }
   ];
 
   return (
     <>
       <Navigation />
       <section className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="container-responsive text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,47 +38,45 @@ const Home: React.FC = () => {
               }}
               className="inline-block mb-4"
             >
-              <FaCode className="text-yellow-500 w-16 h-16" />
+              <FaCode className="text-yellow-500 w-12 h-12 sm:w-16 sm:h-16" />
             </motion.div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
               Hi, I'm Arun S
             </h1>
-          </motion.div>
-
-          <motion.div 
-            className="text-xl md:text-2xl mb-8 h-12 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <AnimatePresence mode="wait">
+            <div className="flex items-center justify-center gap-3 mb-6">
               <motion.div
-                key={activeRole}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="flex items-center justify-center gap-3"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 5, 0]
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-lg"
               >
-                <motion.div
-                  className={`bg-gradient-to-r ${roles[activeRole].color} p-2 rounded-lg`}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    rotate: [0, 5, 0]
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-                >
-                  {roles[activeRole].icon}
-                </motion.div>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
-                  {roles[activeRole].text}
-                </span>
+                <FaCode className="icon-responsive text-white" />
               </motion.div>
-            </AnimatePresence>
+              <div className="text-xl sm:text-2xl md:text-3xl font-semibold">
+                <TypeAnimation
+                  sequence={[
+                    'Full Stack Developer',
+                    2000,
+                    'UI/UX Designer',
+                    2000,
+                    'AI/ML Enthusiast',
+                    2000,
+                    'Mobile Developer',
+                    2000,
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  repeat={Infinity}
+                  className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500"
+                />
+              </div>
+            </div>
           </motion.div>
 
           <motion.p 
-            className="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
+            className="text-responsive text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -96,16 +86,14 @@ const Home: React.FC = () => {
           </motion.p>
 
           <motion.div 
-            className="flex flex-col md:flex-row justify-center gap-4 mb-12"
+            className="flex-responsive justify-center gap-4 mb-8 sm:mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 }}
           >
             <motion.a
               href="/contact"
-              className={`bg-gradient-to-r from-blue-500 to-purple-500 text-white px-8 py-3 rounded-lg transition-all duration-300 shadow-lg ${
-                hoveredButton === 'contact' ? 'scale-105 shadow-xl' : ''
-              }`}
+              className="button-primary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onHoverStart={() => setHoveredButton('contact')}
@@ -115,9 +103,7 @@ const Home: React.FC = () => {
             </motion.a>
             <motion.a
               href="/projects"
-              className={`border-2 border-yellow-500 text-yellow-500 hover:bg-gradient-to-r hover:from-yellow-500 hover:to-orange-500 hover:text-white px-8 py-3 rounded-lg transition-all duration-300 ${
-                hoveredButton === 'projects' ? 'scale-105 shadow-lg' : ''
-              }`}
+              className="button-secondary"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onHoverStart={() => setHoveredButton('projects')}
@@ -128,7 +114,7 @@ const Home: React.FC = () => {
           </motion.div>
 
           <motion.div 
-            className="flex justify-center gap-6"
+            className="flex justify-center gap-4 sm:gap-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
@@ -139,7 +125,7 @@ const Home: React.FC = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`bg-gradient-to-r ${link.color} p-3 rounded-full text-white shadow-md hover:shadow-lg transition-all duration-300`}
+                className={`bg-gradient-to-r ${link.color} p-2 sm:p-3 rounded-full text-white shadow-md hover:shadow-lg transition-all duration-300`}
                 whileHover={{ scale: 1.1, y: -5 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
