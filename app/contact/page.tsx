@@ -59,14 +59,14 @@ const Contact: React.FC = () => {
     {
       name: 'LinkedIn',
       icon: <FaLinkedin className="w-6 h-6" />,
-      link: 'https://linkedin.com/in/yourusername',
+      link: 'https://www.linkedin.com/in/arun-s-b-tech-b26515257',
       text: 'Connect on LinkedIn',
       color: "from-indigo-500 to-purple-500"
     },
     {
       name: 'GitHub',
       icon: <FaGithub className="w-6 h-6" />,
-      link: 'https://github.com/yourusername',
+      link: 'https://github.com/ARUN-S-CODER',
       text: 'Follow on GitHub',
       color: "from-gray-700 to-gray-900"
     }

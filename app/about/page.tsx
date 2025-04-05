@@ -55,7 +55,7 @@ const About: React.FC = () => {
   const quickFacts = [
     {
       icon: <FaGraduationCap className="w-6 h-6" />,
-      text: "B.Tech Computer Science student with 8.667 CGPA",
+      text: "B.Tech Computer Science student with 8.83 CGPA",
       color: "from-blue-500 to-purple-500"
     },
     {
