@@ -12,7 +12,7 @@ const Publications = () => {
       conference: "IEEE",
       date: "April 10, 2024",
       status: "Published",
-      link: "https://drive.google.com/file/d/1FTIsaK5C1Z9kai456yz5H4YYofGFIOr2/view?usp=drivesdk",
+      link: "https://ieeexplore.ieee.org/document/10617278",
       description: "This paper presents an innovative IoT-based smart waste management system that leverages machine learning for efficient recycling processes. The system aims to optimize waste collection and recycling operations through real-time monitoring and predictive analytics."
     },
     {
