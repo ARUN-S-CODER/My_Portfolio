@@ -31,9 +31,9 @@ const Chatbot = () => {
     "What's your GitHub profile?",
     "Tell me about your LinkedIn profile",
     "What's your experience in AI/ML?",
-    "Tell me about your Flutter projects",
+    "What is your experience in flutter domain",
     "What's your experience in web development?",
-    "Tell me about your UI/UX skills"
+    "Tell me about your UI/UX skill"
   ];
 
   useEffect(() => {
