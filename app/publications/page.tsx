@@ -28,13 +28,13 @@ const Publications = () => {
   return (
     <>
       <Navigation />
-      <section className="min-h-screen pt-20 px-4 pb-12 bg-gradient-to-b from-gray-900 to-black">
+      <section className="min-h-screen pt-16 md:pt-20 px-4 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-6xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-bold mb-12 text-center flex items-center justify-center gap-4"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center flex items-center justify-center gap-4"
           >
             <motion.div
               animate={{ 
@@ -46,15 +46,16 @@ const Publications = () => {
                 repeat: Infinity,
                 repeatType: "reverse"
               }}
+              className="w-8 h-8 md:w-10 md:h-10"
             >
-              <FaBook className="text-yellow-500 w-10 h-10" />
+              <FaBook className="text-yellow-500 w-full h-full" />
             </motion.div>
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-orange-500">
               Publications
             </span>
           </motion.h1>
 
-          <div className="grid gap-6 sm:gap-8">
+          <div className="grid gap-4 sm:gap-6 md:gap-8">
             {publications.map((publication, index) => (
               <motion.div
                 key={index}
@@ -70,25 +71,25 @@ const Publications = () => {
                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2">
                       {publication.title}
                     </h2>
-                    <div className="flex flex-wrap gap-3 sm:gap-4 text-gray-300 mb-4">
-                      <span className="flex items-center text-sm sm:text-base">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                    <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 text-gray-300 mb-3 md:mb-4">
+                      <span className="flex items-center text-xs sm:text-sm md:text-base">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full mr-1.5 sm:mr-2"></span>
                         {publication.conference}
                       </span>
-                      <span className="flex items-center text-sm sm:text-base">
-                        <span className="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                      <span className="flex items-center text-xs sm:text-sm md:text-base">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-500 rounded-full mr-1.5 sm:mr-2"></span>
                         {publication.date}
                       </span>
-                      <span className={`flex items-center text-sm sm:text-base ${
+                      <span className={`flex items-center text-xs sm:text-sm md:text-base ${
                         publication.status === "Published" ? "text-green-400" : "text-yellow-400"
                       }`}>
-                        <span className={`w-2 h-2 ${
+                        <span className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${
                           publication.status === "Published" ? "bg-green-500" : "bg-yellow-500"
-                        } rounded-full mr-2`}></span>
+                        } rounded-full mr-1.5 sm:mr-2`}></span>
                         {publication.status}
                       </span>
                     </div>
-                    <p className="text-gray-300 text-sm sm:text-base mb-4">
+                    <p className="text-gray-300 text-xs sm:text-sm md:text-base mb-3 md:mb-4">
                       {publication.description}
                     </p>
                   </div>
@@ -99,11 +100,11 @@ const Publications = () => {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300 text-sm sm:text-base"
                     >
-                      <FaFilePdf className="text-lg" />
+                      <FaFilePdf className="text-base sm:text-lg" />
                       <span>View Paper</span>
-                      <FaExternalLinkAlt className="text-sm" />
+                      <FaExternalLinkAlt className="text-xs sm:text-sm" />
                     </motion.a>
                   )}
                 </div>

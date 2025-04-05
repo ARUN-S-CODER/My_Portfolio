@@ -782,6 +782,9 @@ video {
 .mt-8 {
   margin-top: 2rem;
 }
+.mr-1\.5 {
+  margin-right: 0.375rem;
+}
 .block {
   display: block;
 }
@@ -836,6 +839,9 @@ video {
 .h-full {
   height: 100%;
 }
+.h-1\.5 {
+  height: 0.375rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -875,6 +881,9 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-1\.5 {
+  width: 0.375rem;
 }
 .max-w-2xl {
   max-width: 42rem;
@@ -1354,6 +1363,9 @@ video {
 .pt-20 {
   padding-top: 5rem;
 }
+.pt-16 {
+  padding-top: 4rem;
+}
 .text-left {
   text-align: left;
 }
@@ -1672,6 +1684,10 @@ body {
     margin-bottom: 1.5rem;
   }
 
+  .sm\:mr-2 {
+    margin-right: 0.5rem;
+  }
+
   .sm\:h-16 {
     height: 4rem;
   }
@@ -1680,12 +1696,20 @@ body {
     height: 5rem;
   }
 
+  .sm\:h-2 {
+    height: 0.5rem;
+  }
+
   .sm\:w-16 {
     width: 4rem;
   }
 
   .sm\:w-auto {
     width: auto;
+  }
+
+  .sm\:w-2 {
+    width: 0.5rem;
   }
 
   .sm\:flex-row {
@@ -1708,6 +1732,10 @@ body {
     gap: 2rem;
   }
 
+  .sm\:gap-3 {
+    gap: 0.75rem;
+  }
+
   .sm\:p-3 {
     padding: 0.75rem;
   }
@@ -1719,6 +1747,11 @@ body {
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .sm\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .sm\:text-2xl {
@@ -1745,9 +1778,22 @@ body {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 }
 
 @media (min-width: 768px) {
+
+  .md\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
+  .md\:mb-4 {
+    margin-bottom: 1rem;
+  }
 
   .md\:block {
     display: block;
@@ -1761,8 +1807,16 @@ body {
     display: none;
   }
 
+  .md\:h-10 {
+    height: 2.5rem;
+  }
+
   .md\:w-\[calc\(50\%-2rem\)\] {
     width: calc(50% - 2rem);
+  }
+
+  .md\:w-10 {
+    width: 2.5rem;
   }
 
   .md\:grid-cols-2 {
@@ -1783,6 +1837,18 @@ body {
 
   .md\:flex-row-reverse {
     flex-direction: row-reverse;
+  }
+
+  .md\:gap-4 {
+    gap: 1rem;
+  }
+
+  .md\:gap-8 {
+    gap: 2rem;
+  }
+
+  .md\:pt-20 {
+    padding-top: 5rem;
   }
 
   .md\:text-left {
@@ -1811,6 +1877,11 @@ body {
   .md\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .md\:before\:left-0::before {
