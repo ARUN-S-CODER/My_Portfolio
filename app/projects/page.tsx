@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaCode, FaStar, FaCodeBranch } from 'react-icons/fa';
+import Image from 'next/image';
 
 interface GitHubRepo {
   name: string;
@@ -21,7 +22,7 @@ interface Project {
   image: string;
   technologies: string[];
   features: string[];
-  github: string;
+  github: string | null;
   live: string | null;
   color: string;
 }
@@ -35,7 +36,7 @@ const Projects: React.FC = () => {
     {
       title: "Table Recognition System",
       description: "AI-based invoice data extraction system that generates knowledge graphs from key-value pairs. Extracts tables from invoice images, processes text using OCR, extracts entities and relationships using LLM and traditional methods, and constructs a visual knowledge graph.",
-      image: "/projects/table-recognition.png",
+      image: "/images/table.png",
       technologies: ["Python", "OpenCV", "Machine Learning", "NetworkX", "OCR", "LLM"],
       features: [
         "Automated data extraction",
@@ -49,35 +50,98 @@ const Projects: React.FC = () => {
       color: "from-blue-500 to-purple-500"
     },
     {
+      title: "Netflix Clone",
+      description: "A full-stack Netflix clone with user authentication, movie browsing, and video streaming capabilities. Features include responsive design, movie recommendations, and user profiles.",
+      technologies: ["HTML", "CSS", "JavaScript", "Material-UI"],
+      image: "/images/netflix_clone.png",
+      features: [
+        "User authentication and profiles",
+        "Movie browsing and search",
+        "Responsive design",
+        "Video streaming",
+        "Movie recommendations"
+      ],
+      github: "https://github.com/ARUN-S-CODER/BharatIntern",
+      live: null,
+      color: "from-red-500 to-red-700"
+    },
+    {
+      title: "Hack4Purpose Hackathon Project",
+      description: "A solution developed during the Hack4Purpose hackathon that secured a position in the Top 100. The project focused on addressing real-world challenges through innovative technology implementation.",
+      technologies: ["HTML", "CSS", "JavaScript", "Figma"],
+      image: "/images/hack4purpose.png",
+      features: [
+        "Responsive Design", 
+        "Project management",
+        "Hackathon Informations to showcase the projects", 
+        "Dashboard for users to track their progress"
+      ],
+      github: "https://github.com/ARUN-S-CODER/HACK4PURPOSE",
+      live: "https://hack-project-hack.netlify.app",
+      color: "from-green-500 to-teal-500"
+    },
+    {
+      title: "Portfolio Website",
+      description: "A modern, responsive portfolio website showcasing my skills, projects, and achievements. Built with Next.js, Tailwind CSS, and Framer Motion for smooth animations and transitions.",
+      technologies: ["Next.js", "React", "Tailwind CSS","TypeScript"],
+      image: "/images/PORTFOLIO.png",
+      features: [
+        "Responsive design",
+        "Interactive animations",
+        "Dark mode support",
+        "Project showcase",
+        "Contact form",
+        "AI-powered chatbot"
+      ],
+      github: "https://github.com/ARUN-S-CODER/My_Portfolio",
+      live: "https://arun-s-portfolio.netlify.app",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      title: "Veterinary Drug Management App",
+      description: "A comprehensive solution for veterinary clinics to manage drug inventory, prescriptions, and patient records efficiently.",
+      technologies: ["Flutter", "Material-UI", "Flutterflow"],
+      image: "/images/drug.png",
+      features: [
+        "Easy Search for Drugs",
+        "Dosage Data for Each Species",
+        "User Friendly Interface"
+      ],
+      github: null,
+      live: null,
+      color: "from-blue-500 to-purple-500"
+    },
+    {
       title: "Ticket Buddy Bot",
       description: "AI-driven chatbot for multilingual museum ticket booking. Developed as part of SIH Project.",
-      image: "/projects/ticketbuddy.png",
-      technologies: ["Python", "NLP", "TensorFlow", "DialogFlow"],
+      image: "/images/ticketbuddybot.jpg",
+      technologies: ["Python", "NLP", "LLM","Langchain", "Streamlit"],
       features: [
         "Multilingual support",
         "24/7 automated booking",
         "Smart recommendations",
         "Payment integration"
       ],
-      github: "https://github.com/yourusername/ticketbuddy",
+      github: null,
       live: null,
       color: "from-yellow-500 to-orange-500"
     },
     {
       title: "Helmet Detection System",
       description: "Image processing model for traffic rule enforcement. Final Year project focused on road safety.",
-      image: "/projects/helmet.png",
-      technologies: ["OpenCV", "Python", "TensorFlow", "YOLOv5"],
+      image: "/images/helmet.png",
+      technologies: ["OpenCV", "Python", "Microcontroller", "ML"],
       features: [
         "Real-time detection",
         "High accuracy",
         "Multiple camera support",
         "Automated reporting"
       ],
-      github: "https://github.com/yourusername/helmet-detection",
+      github: null,
       live: null,
       color: "from-green-500 to-teal-500"
-    }
+    },
+    
   ];
 
   useEffect(() => {
@@ -176,9 +240,12 @@ const Projects: React.FC = () => {
                     className={`bg-gray-800 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-t-4 border-${project.color.split(' ')[1].split('-')[1]}-500`}
                   >
                     <div className="relative h-48 bg-gray-700">
-                      {/* Project image would go here */}
                       <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                        <span className="text-lg">Project Preview</span>
+                        {project.image ? (
+                          <Image src={project.image} alt={project.title} fill className="object-cover" />
+                        ) : (
+                          <span className="text-lg font-medium">Project Preview</span>
+                        )}
                       </div>
                     </div>
                     
@@ -222,17 +289,19 @@ const Projects: React.FC = () => {
                       </div>
 
                       <div className="flex space-x-4">
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`flex items-center space-x-2 text-gray-300 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors`}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          <FaGithub className="w-5 h-5" />
-                          <span>Source Code</span>
-                        </motion.a>
+                        {project.github && (
+                          <motion.a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex items-center space-x-2 text-gray-300 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r ${project.color} transition-colors`}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            <FaGithub className="w-5 h-5" />
+                            <span>Source Code</span>
+                          </motion.a>
+                        )}
                         {project.live && (
                           <motion.a
                             href={project.live}

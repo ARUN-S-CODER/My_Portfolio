@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaGoogle, FaEnvelope,FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -44,24 +44,18 @@ const Contact: React.FC = () => {
   const socialLinks = [
     {
       name: 'Email',
-      icon: <FaEnvelope className="w-6 h-6" />,
+      icon: <FaGoogle className="w-6 h-6" />,
       link: 'mailto:arun.s00101@gmail.com',
       text: 'arun.s00101@gmail.com',
-      color: "from-blue-500 to-purple-500"
+      color: "from-red-500 to-orange-500"
     },
-    {
-      name: 'Phone',
-      icon: <FaPhone className="w-6 h-6" />,
-      link: 'tel:+919003128358',
-      text: '+91 90031 28358',
-      color: "from-green-500 to-teal-500"
-    },
+    
     {
       name: 'LinkedIn',
       icon: <FaLinkedin className="w-6 h-6" />,
       link: 'https://www.linkedin.com/in/arun-s-b-tech-b26515257',
       text: 'Connect on LinkedIn',
-      color: "from-indigo-500 to-purple-500"
+      color: "from-blue-500 to-blue-500"
     },
     {
       name: 'GitHub',
