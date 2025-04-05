@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const socialLinks = [
     { icon: <FaGithub className="icon-responsive" />, href: "https://github.com/ARUN-S-CODER", label: "GitHub", color: "from-gray-700 to-gray-900" },
     { icon: <FaLinkedin className="icon-responsive" />, href: "https://www.linkedin.com/in/arun-s-b-tech-b26515257", label: "LinkedIn", color: "from-blue-600 to-blue-800" },
-    { icon: <FaEnvelope className="icon-responsive" />, href: "mailto:arun@example.com", label: "Email", color: "from-red-500 to-red-700" }
+    { icon: <FaEnvelope className="icon-responsive" />, href: "mailto:arun.s00101@gmail.com", label: "Email", color: "from-red-500 to-red-700" }
   ];
 
   return (
