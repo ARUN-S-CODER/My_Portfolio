@@ -19,8 +19,8 @@ const Publications = () => {
       title: "HELMET DETECTION IN TWO WHEELER USING IMAGE PROCESSING",
       conference: "IEEE",
       date: "2024",
-      status: "Going to publish",
-      link: null,
+      status: "Published",
+      link: "https://ieeexplore.ieee.org/document/11020144",
       description: "This research focuses on developing an image processing-based system for automatic helmet detection in two-wheeler riders. The system aims to enhance road safety by ensuring compliance with helmet regulations."
     }
   ];
